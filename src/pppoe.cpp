@@ -28,6 +28,7 @@
  */
 
 #include <cstring>
+#include <tins/ppp.h>
 #include <tins/pppoe.h>
 #include <tins/rawpdu.h>
 #include <tins/exceptions.h>
@@ -60,7 +61,7 @@ PPPoE::PPPoE(const uint8_t* buffer, uint32_t total_sz)
     if (code() == 0) {
         if (stream) {
             inner_pdu(
-                new RawPDU(stream.pointer(), stream.size())
+                new Tins::PPP(stream.pointer(), stream.size())
             );
         }
     }

@@ -73,6 +73,8 @@ public:
      */
     typedef std::vector<ext_header> headers_type;
 
+    typedef std::vector<uint16_t> next_headers_type;
+
     /**
      * The type used to store an extension header option.
      */
@@ -259,6 +261,14 @@ public:
         return ext_headers_;
     }
 
+    /**
+    * \brief Getter for the IPv6 extension headers "next header" field values.
+    *  \return The stored headers.
+    */
+    const next_headers_type& next_headers() const {
+        return ext_headers_nh_;
+    }
+
     // Setters
 
     /**
@@ -359,7 +369,7 @@ public:
      * \deprecated Use IPv6::add_header
      * \param header The extension header to be added.
      */
-    TINS_DEPRECATED(void add_ext_header(const ext_header& header));
+    TINS_DEPRECATED(void add_ext_header(uint16_t, const ext_header& header));
     
     /**
      * Adds an extension header
@@ -367,7 +377,7 @@ public:
      * \deprecated Use IPv6::add_header
      * \param header The extension header to be added.
      */
-    void add_header(const ext_header& header);
+    void add_header(uint16_t nh, const ext_header& header);
 
     #if TINS_IS_CXX11
 
@@ -376,7 +386,8 @@ public:
      * 
      * \param header The extension header to be added.
      */
-    void add_header(ext_header&& header) {
+    void add_header(uint16_t nh, ext_header&& header) {
+        ext_headers_nh_.push_back(nh);
         ext_headers_.emplace_back(std::move(header));
     }
 
@@ -386,7 +397,8 @@ public:
      * \param header The extension header to be added.
      */
     template <typename... Args>
-    void add_header(Args&&... args) {
+    void add_header(uint16_t nh, Args&&... args) {
+        ext_headers_nh_.push_back(nh);
         ext_headers_.emplace_back(std::forward<Args>(args)...);
     }
 
@@ -433,6 +445,7 @@ private:
     } TINS_END_PACK;
 
     ipv6_header header_;
+    next_headers_type ext_headers_nh_;
     headers_type ext_headers_;
     uint8_t next_header_;
 };

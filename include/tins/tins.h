@@ -68,6 +68,7 @@
 #include <tins/timestamp.h>
 #include <tins/sll.h>
 #include <tins/dhcpv6.h>
+#include <tins/ppp.h>
 #include <tins/pppoe.h>
 #include <tins/stp.h>
 #include <tins/handshake_capturer.h>

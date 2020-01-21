@@ -50,6 +50,7 @@ set(SOURCES
     pdu.cpp
     pdu_iterator.cpp
     pdu_option.cpp
+    ppp.cpp
     pppoe.cpp
     radiotap.cpp
     rawpdu.cpp
@@ -81,6 +82,7 @@ set(HEADERS
     ${LIBTINS_INCLUDE_DIR}/tins/bootp.h
     ${LIBTINS_INCLUDE_DIR}/tins/handshake_capturer.h
     ${LIBTINS_INCLUDE_DIR}/tins/stp.h
+    ${LIBTINS_INCLUDE_DIR}/tins/ppp.h
     ${LIBTINS_INCLUDE_DIR}/tins/pppoe.h
     ${LIBTINS_INCLUDE_DIR}/tins/config.h
     ${LIBTINS_INCLUDE_DIR}/tins/constants.h

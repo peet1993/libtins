@@ -1,2 +1,4 @@
 build/**
 include/tins/config.h
+.idea
+cmake-build-*

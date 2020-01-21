@@ -173,6 +173,7 @@ public:
         DOT1AD,
         DOT1Q,
         PPPOE,
+        PPP,
         STP,
         PPI,
         IPSEC_AH,

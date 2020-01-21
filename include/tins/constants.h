@@ -94,6 +94,13 @@ struct Ethernet {
     };
 };
 
+struct PPP {
+    enum e {
+        IP = 0x0021,
+        IPV6 = 0x0057
+    };
+};
+
 struct ARP {
     enum e {
         NETROM = 0,		    // From KA9Q: NET/ROM pseudo.

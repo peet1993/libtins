@@ -50,6 +50,7 @@
 #include <tins/eapol.h>
 #include <tins/rawpdu.h>
 #include <tins/dot1q.h>
+#include <tins/ppp.h>
 #include <tins/pppoe.h>
 #include <tins/pdu_allocator.h>
 
@@ -123,6 +124,24 @@ Tins::PDU* pdu_from_flag(Constants::IP::e flag,
     return 0;
 }
 
+Tins::PDU* pdu_from_flag(Constants::PPP::e flag,
+                         const uint8_t* buffer,
+                         uint32_t size,
+                         bool rawpdu_on_no_match) {
+    switch (flag) {
+        case Constants::PPP::IP:
+            return new Tins::IP(buffer, size);
+        case Constants::PPP::IPV6:
+            return new Tins::IPv6(buffer, size);
+        default:
+            break;
+    }
+    if (rawpdu_on_no_match) {
+        return new Tins::RawPDU(buffer, size);
+    }
+    return 0;
+}
+
 #ifdef TINS_HAVE_PCAP
 PDU* pdu_from_dlt_flag(int flag,
                        const uint8_t* buffer,
@@ -167,6 +186,8 @@ Tins::PDU* pdu_from_flag(PDU::PDUType type, const uint8_t* buffer, uint32_t size
             return new Tins::ARP(buffer, size);
         case Tins::PDU::IEEE802_3:
             return new Tins::IEEE802_3(buffer, size);
+        case Tins::PDU::PPP:
+            return new Tins::PPP(buffer, size);
         case Tins::PDU::PPPOE:
             return new Tins::PPPoE(buffer, size);
         #ifdef TINS_HAVE_DOT11
